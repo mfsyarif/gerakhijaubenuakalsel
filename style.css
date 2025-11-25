@@ -1,0 +1,519 @@
+/* --- Global Reset & Variables --- */
+:root {
+    --color-primary: #2e7d32; /* Hijau Tua */
+    --color-secondary: #4caf50; /* Hijau Sedang */
+    --color-dark: #1b5e20; /* Hijau Sangat Tua (Hover) */
+    --color-bg: #e8f5e9; /* Hijau Sangat Muda */
+    --color-text: #212121;
+}
+
+/* --- Base Body Style --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------- */
+/* --- BACKGROUND & WRAPPER (Global untuk Index/Dashboard) --- */
+/* ------------------------------------------------------------------- */
+.main-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* GANTI INI DENGAN JALUR GAMBAR ANDA, atau gunakan gradasi jika belum ada gambar */
+    background: linear-gradient(135deg, #1b5e20, #4caf50); 
+    /* background-image: url('path/to/kalsel-forest.jpg'); */ 
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6) blur(2px); 
+    z-index: 0;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- CONTAINER UNTUK LOGIN (Mengadopsi Gaya Duitin) --- */
+.container {
+    background: #ffffff; /* Putih Solid */
+    backdrop-filter: none; /* Hilangkan efek blur */
+    padding: 40px;
+    border-radius: 18px; 
+    border: 1px solid #eee;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Bayangan lebih ringan */
+    max-width: 90%;
+    width: 450px; /* Sedikit diperkecil untuk fokus Login */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* --- HEADER BARU (Sapaan yang Jelas) --- */
+header {
+    background: #f7f7f7; /* Latar belakang abu-abu muda */
+    color: var(--color-text); /* Teks hitam */
+    padding: 20px; /* Padding lebih kecil */
+    border-radius: 15px; 
+    margin: -40px 0 30px 0; /* Margin atas-bawah */
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+h1 { margin: 0; font-size: 32px; font-weight: 700; }
+.tagline { font-size: 16px; font-weight: 300; color: #f1f8e9; margin-top: 5px; }
+
+/* --- Styling Header Login (Agar Bersih seperti Duitin) --- */
+header {
+    background: transparent; /* Ubah background header menjadi transparan */
+    color: var(--color-text); /* Warna teks kembali ke hitam */
+    padding: 0;
+    margin: 0 0 30px 0; /* Hapus margin yang membesar */
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+header h1 {
+    color: var(--color-primary);
+    font-size: 28px;
+}
+header p.tagline {
+    color: #555;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+/* --- Posisi Link Sign Up di Kanan Atas --- */
+.signup-link-wrapper {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: -15px; /* Angkat sedikit ke atas container */
+}
+
+.signup-link {
+    color: var(--color-secondary);
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.signup-link:hover {
+    background: #e8f5e9;
+}
+
+
+/* --- INPUT & BUTTONS (Login/Index) --- */
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+    width: 100%; /* Penting: Ambil lebar penuh */
+    box-sizing: border-box;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--color-text);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--color-secondary);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* Tombol login penuh */
+    box-sizing: border-box;
+}
+.btn:hover { background: var(--color-dark); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); transform: translateY(-3px); }
+.error-message { font-weight: bold; height: 18px; margin-bottom: 15px; }
+.info-text { font-size: 14px; margin-top: 25px; color: #666; }
+
+
+/* ------------------------------------------------------------------- */
+/* --- DASHBOARD.HTML STYLES --- */
+/* ------------------------------------------------------------------- */
+
+.dashboard-container {
+    padding-top: 20px;
+    /* Perbaikan: Memastikan konten di Dashboard tidak terpusat jika menggunakan 'align-items: center' */
+    align-items: flex-start; 
+    text-align: left;
+}
+
+/* Balance Card (Style estetika yang ditingkatkan) */
+.balance-card {
+    background: linear-gradient(135deg, var(--color-dark), var(--color-primary)); 
+    color: white;
+    padding: 35px 30px; 
+    border-radius: 15px; 
+    margin-bottom: 40px;
+    box-shadow: 0 10px 20px rgba(46, 125, 50, 0.4); 
+    transition: transform 0.3s ease;
+    cursor: default;
+    width: 100%; 
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.balance-card:hover { transform: translateY(-5px); }
+.balance-card h3 { margin-top: 0; font-size: 18px; font-weight: 400; }
+
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%; 
+}
+
+.nav-btn {
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    color: var(--color-dark);
+    background: #e0f2f1;
+    border-left: 6px solid var(--color-secondary); 
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.nav-btn span {
+    display: block;
+    font-size: 14px; 
+    font-weight: normal; 
+    color: #555; 
+    margin-top: 5px;
+}
+
+.nav-btn:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: #c8e6c9;
+}
+
+/* Tombol Logout Dashboard */
+#logout-btn {
+    background: #c62828 !important; 
+    color: white !important;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------- */
+/* --- MAP.HTML (Leaflet) STYLES --- */
+/* ------------------------------------------------------------------- */
+
+.map-container-wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+#map {
+    width: 75%; 
+    height: 100vh;
+}
+
+#data-sidebar {
+    width: 25%; 
+    height: 100vh;
+    background: #f8f8f8;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.bsd-stats h3 {
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+
+.stat-box {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.stat-box .value { font-size: 24px; font-weight: bold; color: var(--color-dark); }
+.stat-box .label { font-size: 14px; color: #555; }
+
+/* Back Home Button */
+#back-home-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    /* ... (style lain) ... */
+}
+
+/* Filter Container */
+#filter-container {
+    position: absolute;
+    top: 15px;
+    left: 37.5%; 
+    transform: translateX(-50%);
+    /* ... (style lain) ... */
+    z-index: 1000;
+}
+
+/* Legenda */
+.legend-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 14px; color: var(--color-text); }
+.legend-icon { width: 24px; height: 24px; margin-right: 10px; }
+
+/* --- Styling Grid Ringkasan Dampak di Dashboard --- */
+.impact-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom, lebar sama */
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.impact-box {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.impact-box .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-dark);
+    margin-bottom: 5px;
+}
+
+.impact-box .label {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Style khusus untuk kotak Green Map */
+.green-map-box {
+    border-color: var(--color-secondary);
+    background: var(--color-bg);
+}
+
+/* Menyesuaikan tombol navigasi agar lebih kecil karena ada banyak data */
+.menu-nav a.nav-btn span {
+    display: none; /* Hilangkan deskripsi agar tombol lebih ringkas */
+}
+
+/* ------------------------------------------------------------------- */
+/* --- MODAL (POP-UP) STYLING --- */
+/* ------------------------------------------------------------------- */
+
+.modal {
+    display: none; /* Tersembunyi secara default */
+    position: fixed;
+    z-index: 2000; /* Pastikan di atas semua elemen lain */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Background gelap */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* Tengah vertikal dan horizontal */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px; /* Lebar maksimal */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styling Tabel Riwayat */
+.modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.modal-content th, .modal-content td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.modal-content th {
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+}
+
+/* Warna khusus untuk jenis transaksi */
+.type-setor { color: var(--color-primary); font-weight: bold; }
+.type-tarik { color: #c62828; font-weight: bold; }
+
+/* --- CONTAINER BARU (Lebih Luas, Lebih Putih) --- */
+.container {
+    background: #ffffff; /* Putih Solid */
+    backdrop-filter: none; /* Hilangkan efek blur */
+    padding: 40px;
+    border-radius: 18px; 
+    border: 1px solid #eee;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Bayangan lebih ringan */
+    max-width: 90%;
+    width: 650px; /* Buat container lebih lebar */
+    text-align: center;
+    /* ... (properti display tetap) ... */
+}
+
+/* --- HEADER BARU (Sapaan yang Jelas) --- */
+header {
+    background: #f7f7f7; /* Latar belakang abu-abu muda */
+    color: var(--color-text); /* Teks hitam */
+    padding: 20px; /* Padding lebih kecil */
+    border-radius: 15px; 
+    margin: -40px 0 30px 0; /* Margin atas-bawah */
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Tombol Aksi Cepat (Quick Actions) --- */
+.quick-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.action-btn {
+    flex-grow: 1;
+    background: #f1f8e9; /* Hijau Sangat Muda */
+    color: var(--color-primary);
+    padding: 15px 10px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background: #e8f5e9;
+}
+
+.primary-action {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+}
+
+.primary-action:hover {
+    background: var(--color-dark);
+}
+
+/* --- Ringkasan Horizontal (Impact Summary) --- */
+.horizontal-summary-wrapper {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.summary-card {
+    flex-grow: 1;
+    background: #fcfcfc;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: var(--color-dark);
+}
+
+.summary-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.small-link {
+    font-size: 14px;
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* --- Tambahkan ini di style.css, di dekat styling .signup-link --- */
+.signup-link:hover {
+    background: #e8f5e9;
+}
+
+.signup-link:active, /* Saat benar-benar ditekan */
+.signup-link:focus { /* Saat link dipilih */
+    background: #c8e6c9; /* Beri warna yang lebih gelap saat ditekan */
+    color: var(--color-dark);
+    outline: none; /* Hapus outline bawaan browser */
+}

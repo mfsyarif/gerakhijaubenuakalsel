@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Nasabah | Gerakan Hijau Banua</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <script>
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            alert('Anda harus login untuk mengakses platform Gerakan Hijau Banua.');
+            window.location.href = 'index.html';
+        }
+    </script>
+    
+    <div class="main-background"></div> 
+
+    <div class="content-wrapper">
+        <div class="container dashboard-container">
+            <header style="margin-bottom: 30px;">
+                <h1 id="welcome-message">Selamat Datang, Admin!</h1> 
+                <p class="tagline">Ringkasan Dampak Lingkungan dan Tabungan Bank Sampah Digital Anda</p>
+            </header>
+            
+            <div class="balance-card">
+                <h3>💰 Saldo Tabungan Bank Sampah Anda</h3> 
+                <div id="nasabah-balance" class="value" style="font-size: 48px;">Rp 0</div>
+                <p class="label">Diperbarui: 22 Nov 2025</p>
+            </div>
+
+            <div class="quick-actions">
+                <button class="action-btn primary-action">
+                    📥 Setor Sampah
+                </button>
+                <button class="action-btn">
+                    💸 Tarik Saldo
+                </button>
+                <button class="action-btn">
+                    ♻️ Tukar Poin
+                </button>
+            </div>
+
+            <h2 style="color: var(--color-primary); margin-top: 40px; font-weight: 600; text-align: left;">
+                Ringkasan Peta & Dampak
+            </h2>
+
+            <div class="horizontal-summary-wrapper">
+                <div class="summary-card map-card">
+                    <h3>🗺️ Peta Titik Hijau</h3>
+                    <p>Total 5 lokasi terpetakan.</p>
+                    <a href="map.html" class="small-link">Lihat Peta →</a>
+                </div>
+
+                <div class="summary-card stats-card">
+                    <h3>♻️ Sampah Didaur Ulang</h3>
+                    <p>Total <span id="total-sampah-setor-ringkas">0.0 kg</span> disetor.</p>
+                    <a href="#" id="history-btn-ringkas" class="small-link">Riwayat Transaksi →</a>
+                </div>
+            </div>
+
+            <button id="logout-btn" class="btn" style="margin-top: 30px; background: #c62828;">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Data Simulasi Saldo
+        const userBalance = 125000;
+        document.getElementById('nasabah-balance').textContent = 'Rp ' + userBalance.toLocaleString('id-ID');
+
+        // LOGIKA PERSONALIASASI USERNAME
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            // Mengambil username, mengubah huruf pertama menjadi kapital, lalu menampilkannya.
+            document.getElementById('welcome-message').textContent = `Selamat Datang, ${currentUser.charAt(0).toUpperCase() + currentUser.slice(1)}!`;
+        }
+        
+        // Logika Logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        });
+
+        // **LOGIKA PEMUATAN DATA SIMULASI BSD GLOBAL**
+        function loadGlobalBsdStatistics() {
+        
+        // --- Data Simulasi yang sama dengan Sidebar Peta ---
+        const totalSetoran = 14523.5; // kg
+        const nasabahAktif = 780;
+        const totalNilai = 42560000; // Rupiah
+
+        // --- Tampilkan Data ---
+        document.getElementById('total-sampah-setor').textContent = totalSetoran.toLocaleString('id-ID', { maximumFractionDigits: 1 }) + ' kg';
+        document.getElementById('total-nasabah').textContent = nasabahAktif.toLocaleString('id-ID') + ' Orang';
+        document.getElementById('total-transaksi').textContent = 'Rp ' + totalNilai.toLocaleString('id-ID');
+        }
+
+        // Panggil fungsi ini saat halaman dimuat
+        loadGlobalBsdStatistics();
+
+        // ====================================================================
+        // LOGIKA MODAL RIWAYAT TRANSAKSI
+        // ====================================================================
+        const modal = document.getElementById("transaction-modal");
+        const btn = document.querySelector(".nav-btn.history-btn");
+        const span = document.getElementsByClassName("close-btn")[0];
+        const transactionList = document.getElementById("transaction-list");
+
+        // Data Simulasi Riwayat Transaksi
+        const simulatedTransactions = [
+            { date: "2025-11-15", type: "Setoran", amount_kg: 5.2, value_rp: 15600 },
+            { date: "2025-11-10", type: "Penarikan", amount_kg: 0, value_rp: -50000 },
+            { date: "2025-11-01", type: "Setoran", amount_kg: 8.9, value_rp: 26700 },
+            { date: "2025-10-25", type: "Setoran", amount_kg: 3.1, value_rp: 9300 },
+            { date: "2025-10-15", type: "Penarikan", amount_kg: 0, value_rp: -30000 },
+        ];
+
+        function renderTransactions() {
+            transactionList.innerHTML = ''; // Bersihkan isi tabel
+            simulatedTransactions.forEach(t => {
+                const row = transactionList.insertRow();
+                const typeClass = t.type === "Setoran" ? "type-setor" : "type-tarik";
+
+                row.insertCell(0).textContent = t.date;
+                row.insertCell(1).innerHTML = `<span class="${typeClass}">${t.type}</span>`;
+        
+                // Format Kg
+                row.insertCell(2).textContent = t.amount_kg > 0 ? t.amount_kg.toFixed(1) + ' kg' : '-';
+        
+                // Format Rupiah
+                row.insertCell(3).textContent = t.value_rp.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+            });
+        }
+
+        // Event Listener: Tombol Riwayat diklik
+        btn.onclick = function() {
+            renderTransactions(); // Render data saat modal dibuka
+            modal.style.display = "block";
+        }
+
+        // Event Listener: Tombol (X) diklik
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Event Listener: Klik di luar modal (Menutup modal)
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+
+    <div id="transaction-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>📜 Riwayat Transaksi Nasabah</h2>
+        <p>Ringkasan setoran dan penarikan yang pernah Anda lakukan di Bank Sampah Digital.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Jenis Transaksi</th>
+                    <th>Jumlah (Kg)</th>
+                    <th>Nilai (Rp)</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-list">
+                </tbody>
+        </table>
+        
+        <p style="margin-top: 20px; font-style: italic; color: #666;">*Data di atas adalah data simulasi.</p>
+    </div>
+    </div>
+
+</body>
+</html>

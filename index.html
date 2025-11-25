@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Gerakan Hijau Banua</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="main-background"></div> 
+
+    <div class="content-wrapper">
+       <div class="container login-container">
+            
+            <div class="signup-link-wrapper">
+                <a href="#" class="signup-link">Daftar Sekarang</a>
+            </div>
+
+            <header>
+                <h1>🔒 Masuk ke Gerakan Hijau Banua</h1>
+                <p class="tagline">Akses Platform Pemetaan dan Bank Sampah Digital</p>
+            </header>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Masukkan username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+
+                <p id="login-message" class="error-message"></p>
+                
+                <button type="submit" class="btn">Login Sekarang</button>
+            </form>
+
+            <p class="info-text">Demo Login: admin / hijau</p>
+            
+            <p class="small-text-note">
+                Belum punya akun? Klik Daftar Sekarang di atas.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('login-message');
+
+            // Kredensial Simulasi
+            if (username === 'admin' && password === 'hijau') {
+                message.textContent = 'Login berhasil! Mengalihkan...';
+                message.style.color = 'var(--color-secondary)';
+    
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('currentUser', username); // Menyimpan username
+    
+                 window.location.href = 'dashboard.html';
+            } else {
+                message.textContent = 'Username atau Password salah.';
+                message.style.color = 'red';
+                localStorage.removeItem('loggedIn'); // Pastikan status dihapus
+            }
+        });
+
+        // Cek jika sudah login, langsung alihkan (opsional)
+        if (localStorage.getItem('loggedIn') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Logika untuk link Daftar Sekarang (Simulasi)
+        document.querySelector('.signup-link').addEventListener('click', function(e) {
+            // 1. Mencegah link pindah halaman
+            e.preventDefault(); 
+    
+           // 2. Tampilkan pesan simulasi yang lebih informatif
+        alert('Terima kasih atas minat Anda! Fitur Pendaftaran (Sign Up) untuk pengguna baru sedang dalam tahap integrasi dengan database. \n\nSilakan gunakan akun demo: admin / hijau untuk masuk ke platform.');
+    });
+
+    </script>
+
+</body>
+</html>

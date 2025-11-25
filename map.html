@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+        alert('Anda harus login untuk mengakses platform Gerakan Hijau Banua.');
+        window.location.href = 'index.html';
+    }
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peta Interaktif Gerakan Hijau Banua</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<a href="index.html" id="back-home-btn">← Beranda</a>
+
+<div id="filter-container">
+    <button data-category="all" class="filter-btn active">Semua Titik</button>
+    <button data-category="recycle" class="filter-btn">Daur Ulang</button>
+    <button data-category="mangrove" class="filter-btn">Mangrove</button>
+    <button data-category="community" class="filter-btn">Komunitas</button>
+</div>
+
+<div class="map-container-wrapper">
+    <div id="map"></div>
+
+    <div id="data-sidebar">
+        <h2>🌿 Gerakan Hijau Banua</h2>
+        <hr>
+        <div class="bsd-stats">
+            <h3>Statistik Bank Sampah Digital</h3>
+            
+            <div class="stat-box">
+                <div class="value" id="total-sampah-setor">0.0 kg</div>
+                <div class="label">Total Sampah Didaur Ulang</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="value" id="total-nasabah">0 Orang</div>
+                <div class="label">Jumlah Nasabah Aktif</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="value" id="total-transaksi">Rp 0</div>
+                <div class="label">Total Nilai Transaksi Setoran</div>
+            </div>
+
+            <p style="margin-top: 20px;">Data ini diperbarui dari sistem Bank Sampah Digital.</p>
+        
+        <button id="logout-btn" class="btn" style="margin-top: 20px;">Logout</button>
+        </div>
+        
+        <hr>
+
+        <h3>Informasi Komunitas</h3>
+        <p>Gunakan peta untuk melihat detail lokasi komunitas dan program hijau.</p>
+
+        <hr>
+        <h3>Keterangan Peta (Legenda)</h3>
+        <div class="legend-container">
+            <div class="legend-item">
+                <img src="assets/icons/recycle.png" alt="Ikon Daur Ulang" class="legend-icon">
+                <span>Lokasi Daur Ulang / Bank Sampah</span>
+            </div>
+            <div class="legend-item">
+                <img src="assets/icons/mangrove.png" alt="Ikon Mangrove" class="legend-icon">
+                <span>Area Konservasi / Mangrove</span>
+            </div>
+            <div class="legend-item">
+                 <img src="assets/icons/community.png" alt="Ikon Komunitas" class="legend-icon">
+                  <span>Komunitas & Inisiatif Hijau</span>
+             </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
